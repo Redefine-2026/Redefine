@@ -32,12 +32,10 @@ That regenerates both `index.html` and `dist/redefine-single.html`, so the two c
 
 The opening screen is the Figma artwork itself, placed as an image and swapped for the mobile export under 760px. Transparent hotspots sit on top at coordinates read from the SVG, so REGISTER and the TIMELINE / TRACKS / TEAM UP / FAQ labels are clickable and stay aligned at any width. Hovering one hides the system cursor and shows a glowing pen instead — on fine pointers only.
 
-REGISTER opens a chooser that routes to the right VIT portal:
+REGISTER hands off to the Gravitas event page, where registration is completed:
+`gravitas.vit.ac.in/events/d440eb17-cc8b-4651-943a-1d449a2efeee`
 
-- VIT students → `vconnect.vit.ac.in/vtopconnect/login`
-- Everyone else → `web.vit.ac.in/gravitasexternal/login`
-
-Below the artwork: a live countdown to the opening bell, the brief, tracks, timeline, judging criteria, team sizing and FAQ.
+Below the artwork: a live countdown to the opening bell, the brief, tracks, timeline, judging criteria, team sizing, FAQ and contact.
 
 No build tooling, no dependencies. The only external request is the Google Fonts stylesheet (Archivo Black, Archivo, JetBrains Mono).
 
@@ -56,4 +54,3 @@ Uncomment what you want, put the real figure in place of `₹ _ _ _ _ _`, then r
 ## Still to fill in
 
 - Check-in time, checkpoint format, and results timing (marked TBA on the timeline)
-- A contact address for the footer

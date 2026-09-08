@@ -164,6 +164,9 @@ section:nth-of-type(even){background:var(--ink)}
 .label::before{content:"";position:absolute;inset:0;background:var(--marker);transform:skewX(-9deg) rotate(-.7deg);z-index:-1;border-radius:2px}
 section:nth-of-type(even) .label::before{background:var(--marker)}
 h2{font-family:var(--display);font-size:clamp(29px,5vw,58px);line-height:1;letter-spacing:-.025em;margin:14px 0 0;text-wrap:balance;max-width:20ch}
+.sub a{color:var(--blush);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;transition:color .15s}
+.sub a:hover{color:var(--paper)}
+.sub a:focus-visible{outline:2px solid var(--blush);outline-offset:3px;border-radius:3px}
 .sub{
   max-width:var(--col);margin:16px 0 0;
   color:var(--paper);font-weight:600;
@@ -226,6 +229,8 @@ details p{margin:0 0 22px;color:var(--blush);max-width:78ch;font-size:16px}
 .final{text-align:center}
 .final h2{font-size:clamp(40px,10vw,120px);letter-spacing:-.04em;max-width:none}
 .final .sub{margin-left:auto;margin-right:auto}
+footer a{color:var(--paper);text-decoration:underline;text-underline-offset:3px}
+footer a:hover{color:var(--blush)}
 footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(--gut) 40px;display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:uppercase}
 
 /* ============ registration chooser ============ */
