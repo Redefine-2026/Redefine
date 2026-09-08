@@ -15,9 +15,7 @@ body = (ROOT / "src/body.part").read_text()
 def durl(rel, mime):
     return "data:%s;base64,%s" % (mime, base64.b64encode((ROOT / rel).read_bytes()).decode())
 
-# ---- index.html: links the artwork, stays small -------------------------
-linked = body.replace("__DESK__", "assets/desktop.svg").replace("__MOB__", "assets/mobile.svg")
-(ROOT / "index.html").write_text('''<!DOCTYPE html>
+DOC = '''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,14 +27,18 @@ linked = body.replace("__DESK__", "assets/desktop.svg").replace("__MOB__", "asse
 <meta property="og:image" content="logo.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="logo.png">
-''' + head + '''
-<style>*,*::before,*::after{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
+{head}
+<style>*,*::before,*::after{{box-sizing:border-box}}img{{max-width:100%}}[hidden]{{display:none!important}}</style>
 </head>
 <body>
-''' + linked + '''
+{body}
 </body>
 </html>
-''')
+'''
+
+# ---- index.html: links the artwork, stays small -------------------------
+linked = body.replace("__DESK__", "assets/desktop.svg").replace("__MOB__", "assets/mobile.svg")
+(ROOT / "index.html").write_text(DOC.format(head=head, body=linked))
 
 # ---- dist/redefine-single.html: everything inlined ----------------------
 inline = (body
@@ -45,6 +47,6 @@ inline = (body
     .replace('<img alt="" id="hdrLogo">',
              '<img alt="" id="hdrLogo" src="%s">' % durl("assets/logo-256.png", "image/png")))
 (ROOT / "dist").mkdir(exist_ok=True)
-(ROOT / "dist/redefine-single.html").write_text(head + "\n" + inline)
+(ROOT / "dist/redefine-single.html").write_text(DOC.format(head=head, body=inline))
 
 print("built index.html and dist/redefine-single.html")
