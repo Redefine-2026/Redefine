@@ -118,10 +118,10 @@
     <p class="sub">Craft carries as much weight as the idea. A radical concept in careless type and colour won’t clear the bar — and neither will a beautiful screen that changes nothing.</p>
   </div>
   <div class="cards quad">
-    <div class="card"><span class="card-k">Criterion 01</span><h3>Architecture</h3><p>How the experience is structured — information hierarchy, navigation, and whether the flow holds up under real use.</p></div>
-    <div class="card"><span class="card-k">Criterion 02</span><h3>Colour Palette</h3><p>Deliberate colour with a working system behind it: contrast, accessibility, and a palette chosen for this product.</p></div>
-    <div class="card"><span class="card-k">Criterion 03</span><h3>Typography</h3><p>Type as a decision, not a default. Scale, pairing, weight, spacing, and readability across the whole interface.</p></div>
-    <div class="card"><span class="card-k">Criterion 04</span><h3>Creativity</h3><p>How far you moved from the original. The bolder the departure — and the better you justify it — the higher this scores.</p></div>
+    <div class="card"><span class="card-n">01</span><div class="card-body"><span class="card-k">Criterion</span><h3>Architecture</h3><p>How the experience is structured — information hierarchy, navigation, and whether the flow holds up under real use.</p></div></div>
+    <div class="card"><span class="card-n">02</span><div class="card-body"><span class="card-k">Criterion</span><h3>Colour Palette</h3><p>Deliberate colour with a working system behind it: contrast, accessibility, and a palette chosen for this product.</p></div></div>
+    <div class="card"><span class="card-n">03</span><div class="card-body"><span class="card-k">Criterion</span><h3>Typography</h3><p>Type as a decision, not a default. Scale, pairing, weight, spacing, and readability across the whole interface.</p></div></div>
+    <div class="card"><span class="card-n">04</span><div class="card-body"><span class="card-k">Criterion</span><h3>Creativity</h3><p>How far you moved from the original. The bolder the departure — and the better you justify it — the higher this scores.</p></div></div>
   </div>
 </section>
 

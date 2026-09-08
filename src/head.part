@@ -187,12 +187,22 @@ h2{font-family:var(--display);font-size:clamp(29px,5vw,58px);line-height:1;lette
 @media (min-width:700px){.cards{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1080px){.cards{grid-template-columns:repeat(3,1fr)}}
 
-/* four of a kind: a centred 2x2 rather than three across and one orphan */
-.cards.quad{max-width:min(1000px,100%);margin-left:auto;margin-right:auto}
-@media (min-width:700px){.cards.quad{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1080px){.cards.quad{grid-template-columns:repeat(2,1fr);gap:18px}}
-.cards.quad .card{align-items:center;text-align:center;padding:30px 26px}
-.cards.quad .card p{max-width:34ch}
+/* four of a kind: a 2x2 across the full width, each card a numbered row */
+@media (min-width:700px){.cards.quad{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media (min-width:1080px){.cards.quad{grid-template-columns:repeat(2,1fr)}}
+.cards.quad .card{
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:clamp(18px,2.4vw,34px);align-items:start;
+  padding:clamp(26px,3vw,38px) clamp(24px,2.6vw,36px);
+}
+.card-n{
+  font-family:var(--display);font-size:clamp(38px,4.6vw,68px);line-height:.82;
+  letter-spacing:-.05em;color:var(--blush);font-variant-numeric:tabular-nums;
+  opacity:.85;
+}
+.card-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cards.quad .card h3{font-size:clamp(21px,2.2vw,28px)}
+.cards.quad .card p{font-size:clamp(15px,1.15vw,16.5px);max-width:46ch}
 .card{background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
 section:nth-of-type(even) .card{background:rgba(247,241,241,.045)}
 .card-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--blush);text-transform:uppercase}
