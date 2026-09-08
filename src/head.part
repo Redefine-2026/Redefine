@@ -41,6 +41,8 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);f
   transition:box-shadow .22s ease;
 }
 .hot::after{content:"";position:absolute;inset:-14px}
+/* the mobile labels sit closer together — keep the padded tap areas from overlapping */
+@media (max-width:760px){ .hot::after{inset:-7px} .hot-register::after{inset:-12px} }
 .hot{cursor:pointer}
 .hot:focus-visible{outline:2px solid var(--blush);outline-offset:8px}
 /* on a real pointer the glowing pen replaces the cursor entirely */

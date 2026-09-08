@@ -53,6 +53,8 @@ body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);f
   transition:box-shadow .22s ease;
 }
 .hot::after{content:"";position:absolute;inset:-14px}
+/* the mobile labels sit closer together — keep the padded tap areas from overlapping */
+@media (max-width:760px){ .hot::after{inset:-7px} .hot-register::after{inset:-12px} }
 .hot{cursor:pointer}
 .hot:focus-visible{outline:2px solid var(--blush);outline-offset:8px}
 /* on a real pointer the glowing pen replaces the cursor entirely */
@@ -274,6 +276,10 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
   </div>
   <div class="hots hots-mob" aria-label="Page controls">
     <button class="hot hot-register" data-open style="--l:82.66%;--t:1.87%;--w:12.61%;--h:1.83%">Register</button>
+    <a class="hot" href="#timeline" style="--l:3.48%;--t:27.80%;--w:41.29%;--h:5.15%">Timeline</a>
+    <a class="hot" href="#tracks"   style="--l:61.19%;--t:30.09%;--w:28.86%;--h:8.58%">Tracks</a>
+    <a class="hot" href="#faq"      style="--l:20.40%;--t:36.16%;--w:17.91%;--h:7.55%">FAQ</a>
+    <a class="hot" href="#teams"    style="--l:52.74%;--t:42.45%;--w:43.28%;--h:8.58%">Team up</a>
   </div>
   <a class="scroll-cue" id="cue" href="#brief">
     EVENT DETAILS
@@ -346,7 +352,8 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <div class="tl-row"><div class="tl-when">16 SEP · Night</div><div class="tl-what">Overnight session</div><p class="tl-note">The gallery stays open through the night. The clock doesn’t stop.</p></div>
     <div class="tl-row pin"><div class="tl-when">17 SEP · Morning</div><div class="tl-what">Submissions close</div><p class="tl-note">Twenty-four hours up. Final files and prototypes in.</p></div>
     <div class="tl-row"><div class="tl-when">17 SEP · Later</div><div class="tl-what">Judging &amp; results <span class="tba">TBA</span></div><p class="tl-note">Scored on architecture, colour palette, typography and creativity.</p></div>
-  </section>
+  </div>
+</section>
 
 <section id="judging">
   <div class="head">
