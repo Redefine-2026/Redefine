@@ -225,6 +225,8 @@ details p{margin:0 0 22px;color:var(--blush);max-width:78ch;font-size:16px}
 .final{text-align:center}
 .final h2{font-size:clamp(40px,10vw,120px);letter-spacing:-.04em;max-width:none}
 .final .sub{margin-left:auto;margin-right:auto}
+sup{font-size:.58em;line-height:0;vertical-align:super;color:var(--blush);margin-left:.06em}
+.footnote{flex-basis:100%;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:none}
 footer a{color:var(--paper);text-decoration:underline;text-underline-offset:3px}
 footer a:hover{color:var(--blush)}
 footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(--gut) 40px;display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:uppercase}

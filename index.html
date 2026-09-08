@@ -237,6 +237,8 @@ details p{margin:0 0 22px;color:var(--blush);max-width:78ch;font-size:16px}
 .final{text-align:center}
 .final h2{font-size:clamp(40px,10vw,120px);letter-spacing:-.04em;max-width:none}
 .final .sub{margin-left:auto;margin-right:auto}
+sup{font-size:.58em;line-height:0;vertical-align:super;color:var(--blush);margin-left:.06em}
+.footnote{flex-basis:100%;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:none}
 footer a{color:var(--paper);text-decoration:underline;text-underline-offset:3px}
 footer a:hover{color:var(--blush)}
 footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(--gut) 40px;display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:uppercase}
@@ -327,7 +329,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <div class="fact"><span>Date</span><b>16 Sep – 17 Sep</b></div>
     <div class="fact"><span>Runs</span><b>08:00 AM → 08:00 AM</b></div>
     <div class="fact"><span>Venue</span><b>Sarojini Naidu Gallery</b></div>
-    <div class="fact"><span>Entry</span><b>₹150 per ticket</b></div>
+    <div class="fact"><span>Entry</span><b>₹150<sup>*</sup> per ticket</b></div>
   </div>
 </div>
 
@@ -346,7 +348,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
   <div class="stats">
     <div class="stat"><b>24</b><span>Hours, no pause</span></div>
     <div class="stat"><b>1–4</b><span>Members per team</span></div>
-    <div class="stat"><b>₹150</b><span>Per ticket</span></div>
+    <div class="stat"><b>₹150<sup>*</sup></b><span>Per ticket</span></div>
     <div class="stat"><b>4</b><span>Judging criteria</span></div>
     <!-- PRIZE POOL — swap this back in for the tile above when the amount is announced.
     <div class="stat"><b>5 figures</b><span>Prize pool, dropping soon</span></div>
@@ -439,7 +441,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <p class="sub">Anything not covered here goes out to registered teams by email before the 16th.</p>
   </div>
   <div class="faq">
-    <details open><summary>What does it cost?</summary><p>₹150 per ticket. That’s per person, and it covers the full 24 hours at the venue.</p></details>
+    <details open><summary>What does it cost?</summary><p>₹150 per ticket, plus GST. That’s per person, and it covers the full 24 hours at the venue.</p></details>
     <details><summary>Can I enter on my own?</summary><p>Yes. Teams are 1 to 4 members, so a solo entry is a valid team.</p></details>
     <details><summary>Is this a coding event?</summary><p>It’s a designathon. The judging criteria are architecture, colour palette, typography and creativity — so the work is judged as design. How far you take it into a working prototype is up to you and your team.</p></details>
     <details><summary>What will I be designing?</summary><p>A set of tracks is announced at the start of the event, and your team chooses one of them to work in. Expect familiar territory — music and streaming, e-commerce, social platforms, productivity tools, entertainment, everyday apps. Whichever track you pick, the rule is the same: you’re replacing something familiar, not polishing it.</p></details>
@@ -461,7 +463,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 <section class="final">
   <span class="label">GET IN</span>
   <h2>REDEFINE</h2>
-  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket.<!-- PRIZE POOL: append " · five-figure prize pool." here --></p>
+  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150<sup>*</sup> per ticket.<!-- PRIZE POOL: append " · five-figure prize pool." here --></p>
   <div style="margin-top:34px"><button class="btn huge" data-open>REGISTER</button></div>
 </section>
 </main>
@@ -469,7 +471,8 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 <footer>
   <span>REDEFINE · IEEE COMPUTER SOCIETY</span>
   <span>16–17 SEP · 08:00 → 08:00 · Sarojini Naidu Gallery</span>
-  <span><a href="https://www.instagram.com/direct/t/108380507221634/" target="_blank" rel="noopener noreferrer">TALK TO US</a> · ₹150 PER TICKET</span><!-- PRIZE POOL: was "₹150 PER TICKET · 5-FIGURE PRIZE POOL" -->
+  <span><a href="https://www.instagram.com/direct/t/108380507221634/" target="_blank" rel="noopener noreferrer">TALK TO US</a> · ₹150<sup>*</sup> PER TICKET</span><!-- PRIZE POOL: was "₹150 PER TICKET · 5-FIGURE PRIZE POOL" -->
+  <p class="footnote">* Ticket price is ₹150 + GST.</p>
 </footer>
 
 <div class="pen" id="pen" aria-hidden="true">
@@ -509,7 +512,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
         <li>Complete payment</li>
       </ol>
     </div>
-    <p class="note">₹150 per ticket. Both links open VIT’s official registration portals in a new tab.</p>
+    <p class="note">₹150 + GST per ticket. Both links open VIT’s official registration portals in a new tab.</p>
   </div>
 </div>
 
