@@ -186,7 +186,13 @@ h2{font-family:var(--display);font-size:clamp(29px,5vw,58px);line-height:1;lette
 .cards{display:grid;gap:14px;margin-top:clamp(30px,5vw,52px)}
 @media (min-width:700px){.cards{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1080px){.cards{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:1500px){.cards{grid-template-columns:repeat(3,1fr)}}
+
+/* four of a kind: a centred 2x2 rather than three across and one orphan */
+.cards.quad{max-width:min(1000px,100%);margin-left:auto;margin-right:auto}
+@media (min-width:700px){.cards.quad{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1080px){.cards.quad{grid-template-columns:repeat(2,1fr);gap:18px}}
+.cards.quad .card{align-items:center;text-align:center;padding:30px 26px}
+.cards.quad .card p{max-width:34ch}
 .card{background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
 section:nth-of-type(even) .card{background:rgba(247,241,241,.045)}
 .card-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--blush);text-transform:uppercase}

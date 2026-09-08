@@ -198,7 +198,13 @@ h2{font-family:var(--display);font-size:clamp(29px,5vw,58px);line-height:1;lette
 .cards{display:grid;gap:14px;margin-top:clamp(30px,5vw,52px)}
 @media (min-width:700px){.cards{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1080px){.cards{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:1500px){.cards{grid-template-columns:repeat(3,1fr)}}
+
+/* four of a kind: a centred 2x2 rather than three across and one orphan */
+.cards.quad{max-width:min(1000px,100%);margin-left:auto;margin-right:auto}
+@media (min-width:700px){.cards.quad{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1080px){.cards.quad{grid-template-columns:repeat(2,1fr);gap:18px}}
+.cards.quad .card{align-items:center;text-align:center;padding:30px 26px}
+.cards.quad .card p{max-width:34ch}
 .card{background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
 section:nth-of-type(even) .card{background:rgba(247,241,241,.045)}
 .card-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--blush);text-transform:uppercase}
@@ -393,7 +399,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     </div>
     <p class="sub">Craft carries as much weight as the idea. A radical concept in careless type and colour won’t clear the bar — and neither will a beautiful screen that changes nothing.</p>
   </div>
-  <div class="cards">
+  <div class="cards quad">
     <div class="card"><span class="card-k">Criterion 01</span><h3>Architecture</h3><p>How the experience is structured — information hierarchy, navigation, and whether the flow holds up under real use.</p></div>
     <div class="card"><span class="card-k">Criterion 02</span><h3>Colour Palette</h3><p>Deliberate colour with a working system behind it: contrast, accessibility, and a palette chosen for this product.</p></div>
     <div class="card"><span class="card-k">Criterion 03</span><h3>Typography</h3><p>Type as a decision, not a default. Scale, pairing, weight, spacing, and readability across the whole interface.</p></div>
@@ -438,7 +444,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
       <span class="label">FAQ</span>
       <h2>Before you ask</h2>
     </div>
-   <!-- <p class="sub">Anything not covered here goes out to registered teams by email before the 16th.</p> -->
+    <p class="sub">Anything not covered here goes out to registered teams by email before the 16th.</p>
   </div>
   <div class="faq">
     <details open><summary>What does it cost?</summary><p>₹150 per ticket, plus GST. That’s per person, and it covers the full 24 hours at the venue.</p></details>
