@@ -114,7 +114,24 @@ nav a:hover,nav a:focus-visible{color:var(--paper);border-bottom-color:var(--pap
 .btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--blush),0 0 46px rgba(250,194,207,.42)}
 .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--blush),0 0 20px rgba(250,194,207,.2)}
 .btn:focus-visible{outline:3px solid var(--blush);outline-offset:5px}
-.btn.huge{font-size:clamp(19px,3vw,26px);padding:clamp(20px,3vw,28px) clamp(40px,6vw,72px);border-radius:26px;letter-spacing:.18em;box-shadow:8px 8px 0 var(--blush),0 0 54px rgba(250,194,207,.34)}
+.btn.huge{
+  font-size:clamp(19px,3vw,26px);padding:clamp(20px,3vw,28px) clamp(40px,6vw,72px);
+  border-radius:26px;letter-spacing:.18em;
+  box-shadow:8px 8px 0 var(--blush);
+  position:relative;isolation:isolate;
+}
+/* the blush halo sits on its own layer so hovering can't shrink it */
+.btn.huge::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  box-shadow:0 0 54px 6px rgba(250,194,207,.45);
+  animation:ctaGlow 3.4s ease-in-out infinite;
+  transition:box-shadow .2s ease;
+}
+.btn.huge:hover{box-shadow:12px 12px 0 var(--blush)}
+.btn.huge:hover::before{box-shadow:0 0 88px 14px rgba(250,194,207,.65)}
+.btn.huge:active{box-shadow:3px 3px 0 var(--blush)}
+@keyframes ctaGlow{0%,100%{opacity:.72}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.btn.huge::before{animation:none;opacity:1}}
 .btn.ghost{background:transparent;color:var(--paper);border:1.5px solid var(--blush);box-shadow:none}
 .btn.ghost:hover{background:rgba(250,194,207,.12);transform:none;box-shadow:none}
 
