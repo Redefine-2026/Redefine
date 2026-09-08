@@ -32,8 +32,12 @@ That regenerates both `index.html` and `dist/redefine-single.html`, so the two c
 
 The opening screen is the Figma artwork itself, placed as an image and swapped for the mobile export under 760px. Transparent hotspots sit on top at coordinates read from the SVG, so REGISTER and the TIMELINE / TRACKS / TEAM UP / FAQ labels are clickable and stay aligned at any width. Hovering one hides the system cursor and shows a glowing pen instead — on fine pointers only.
 
-REGISTER hands off to the Gravitas event page, where registration is completed:
-`gravitas.vit.ac.in/events/d440eb17-cc8b-4651-943a-1d449a2efeee`
+REGISTER opens a chooser that routes to the right VIT portal:
+
+- VIT students → `vconnect.vit.ac.in/vtopconnect/login`
+- Everyone else → `web.vit.ac.in/gravitasexternal/login`
+
+Either way, the path inside the portal is **Events → Hackathon → Redefine → Complete payment**, which the panel spells out.
 
 Below the artwork: a live countdown to the opening bell, the brief, tracks, timeline, judging criteria, team sizing, FAQ and contact.
 

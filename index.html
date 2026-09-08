@@ -260,6 +260,13 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 .route b{font-family:var(--display);font-size:19px;letter-spacing:-.01em}
 .route-d{font-size:14.5px;color:var(--blush);line-height:1.45}
 .route-go{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;margin-top:4px}
+/* where to go once you are inside the portal */
+.path{margin-top:20px;padding:16px 18px;border:1px dashed var(--blush);border-radius:16px;background:rgba(11,11,12,.35)}
+.path-k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--blush);margin-bottom:10px}
+.path ol{display:flex;flex-wrap:wrap;align-items:center;gap:7px 4px;margin:0;padding:0;list-style:none}
+.path li{font-family:var(--display);font-size:13.5px;letter-spacing:.02em;color:var(--paper);white-space:nowrap}
+.path li + li::before{content:"→";color:var(--blush);font-family:var(--mono);margin-right:6px;font-weight:400}
+.path li:last-child{color:var(--blush)}
 .note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--blush);margin:16px 0 0;line-height:1.6}
 [hidden]{display:none!important}
 .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:99;border-radius:0 0 12px 0}
@@ -485,17 +492,32 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="regTitle">
     <button class="x" id="closeBtn" aria-label="Close">&times;</button>
     <span class="label">REGISTER</span>
-    <h2 id="regTitle">Registration is on Gravitas</h2>
-    <p class="sub">Complete your registration and find the rest of the event information on the Gravitas event page.</p>
+    <h2 id="regTitle">One question first</h2>
+    <p class="sub">Registration runs on VIT’s own portals, and which one you use depends on where you’re coming from.</p>
     <div class="routes">
-      <a class="route" href="https://gravitas.vit.ac.in/events/d440eb17-cc8b-4651-943a-1d449a2efeee" target="_blank" rel="noopener noreferrer">
-        <span class="route-k">GRAVITAS</span>
-        <b>Go to the event page</b>
-        <span class="route-d">Registration, full details and any updates to the schedule live there.</span>
-        <span class="route-go">gravitas.vit.ac.in →</span>
+      <a class="route" href="https://vconnect.vit.ac.in/vtopconnect/login" target="_blank" rel="noopener noreferrer">
+        <span class="route-k">INTERNAL</span>
+        <b>I’m a VIT student</b>
+        <span class="route-d">Register through VTOP Connect with your VIT credentials.</span>
+        <span class="route-go">vconnect.vit.ac.in →</span>
+      </a>
+      <a class="route" href="https://web.vit.ac.in/gravitasexternal/login" target="_blank" rel="noopener noreferrer">
+        <span class="route-k">EXTERNAL</span>
+        <b>I’m from outside VIT</b>
+        <span class="route-d">Register through the Gravitas external portal.</span>
+        <span class="route-go">web.vit.ac.in →</span>
       </a>
     </div>
-    <p class="note">₹150 per ticket. Opens the official Gravitas event page in a new tab.</p>
+    <div class="path">
+      <span class="path-k">Once you’re in, find us at</span>
+      <ol>
+        <li>Events</li>
+        <li>Hackathon</li>
+        <li>Redefine</li>
+        <li>Complete payment</li>
+      </ol>
+    </div>
+    <p class="note">₹150 per ticket. Both links open VIT’s official registration portals in a new tab.</p>
   </div>
 </div>
 
