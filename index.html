@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="REDEFINE — a 24-hour designathon by IEEE Computer Society. 16–17 September, Sarojini Naidu Gallery. Teams of 1–4, ₹150 per ticket.">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:title" content="REDEFINE">
+<meta property="og:description" content="A 24-hour designathon by IEEE Computer Society. Take something familiar, question everything about it, and build something better.">
+<meta property="og:image" content="logo.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="logo.png">
+<title>REDEFINE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  --pink:#C1325F;
+  --pink-mob:#CF3A6E;
+  --ink:#0B0B0C;
+  --marker:#B82F5A;
+  --blush:#FAC2CF;
+  --paper:#F7F1F1;
+  --hair:rgba(250,194,207,.55);
+  --display:"Archivo Black","Helvetica Neue",Arial,sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gut:clamp(20px,5vw,64px);
+  --col:min(64ch,100%);
+  --wide:1500px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ============ the Figma artwork, used as the page's opening screen ============ */
+.stage{position:relative;width:100%;background:var(--pink);line-height:0}
+.stage img{display:block;width:100%;height:auto}
+.stage .art-mob{display:none}
+@media (max-width:760px){
+  .stage{background:var(--pink-mob)}
+  .stage .art-desk{display:none}
+  .stage .art-mob{display:block}
+}
+.hots{position:absolute;inset:0;line-height:normal}
+.hot{
+  position:absolute;left:var(--l);top:var(--t);width:var(--w);height:var(--h);
+  display:block;border:0;padding:0;cursor:pointer;
+  color:transparent;font-size:0;
+  background:transparent;border-radius:999px;
+  transition:box-shadow .22s ease;
+}
+.hot::after{content:"";position:absolute;inset:-14px}
+.hot{cursor:pointer}
+.hot:focus-visible{outline:2px solid var(--blush);outline-offset:8px}
+/* on a real pointer the glowing pen replaces the cursor entirely */
+@media (hover:hover) and (pointer:fine){ .hot{cursor:none} }
+
+/* the pen */
+.pen{
+  position:fixed;left:0;top:0;width:34px;height:34px;z-index:80;
+  pointer-events:none;opacity:0;transition:opacity .16s ease;
+  will-change:transform;
+}
+.pen.on{opacity:1}
+.pen svg{
+  width:100%;height:100%;display:block;
+  filter:drop-shadow(0 0 5px rgba(250,194,207,.95))
+         drop-shadow(0 0 14px rgba(250,194,207,.75))
+         drop-shadow(0 0 30px rgba(250,194,207,.45));
+}
+@media (hover:none),(pointer:coarse){ .pen{display:none} }
+/* scroll cue — there is a page under the artwork */
+.scroll-cue{
+  position:absolute;left:50%;bottom:clamp(16px,2.6vw,32px);transform:translateX(-50%);
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  padding:9px 16px 9px 18px;border-radius:999px;
+  background:rgba(11,11,12,.72);border:1px solid var(--hair);
+  color:var(--paper);font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+  backdrop-filter:blur(4px);line-height:1;
+  transition:opacity .3s,transform .18s,border-color .18s,background-color .18s;
+}
+.scroll-cue:hover{border-color:var(--blush);background:rgba(11,11,12,.9)}
+.scroll-cue:focus-visible{outline:3px solid var(--blush);outline-offset:4px}
+.scroll-cue svg{width:14px;height:14px;flex:none;animation:nudge 1.9s ease-in-out infinite}
+.scroll-cue.gone{opacity:0;pointer-events:none}
+@keyframes nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+@media (prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
+@media (max-width:480px){.scroll-cue{font-size:9.5px;letter-spacing:.16em;padding:8px 13px}}
+.hots-desk{display:block}
+.hots-mob{display:none}
+@media (max-width:760px){.hots-desk{display:none}.hots-mob{display:block}}
+
+/* ============ sticky bar, revealed once the artwork is scrolled past ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px var(--gut);background:var(--ink);border-bottom:1px solid var(--hair);
+  transform:translateY(-102%);transition:transform .28s cubic-bezier(.2,.8,.3,1);
+}
+header.shown{transform:none}
+.mark{display:flex;align-items:center;gap:12px;min-width:0}
+.mark-badge{width:38px;height:38px;flex:none;border-radius:9px;background:var(--paper);display:grid;place-items:center;color:var(--ink);font-family:var(--display);font-size:17px;overflow:hidden}
+.has-logo .mark-badge{background:var(--ink)}
+.has-logo .mark-badge .glyph{display:none}
+.mark-badge img{width:100%;height:100%;object-fit:contain;display:none}
+.has-logo .mark-badge img{display:block}
+.mark-txt{font-family:var(--display);font-size:14px;letter-spacing:.16em}
+nav{display:none;gap:24px;font-size:12.5px;letter-spacing:.13em;font-weight:600;text-transform:uppercase}
+@media (min-width:940px){nav{display:flex}}
+nav a{color:var(--blush);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--paper);border-bottom-color:var(--paper)}
+
+/* ============ the button, per the design: black pill, blush glow + hard offset ============ */
+.btn{
+  font-family:var(--display);font-size:14px;letter-spacing:.14em;
+  color:var(--paper);background:var(--ink);border:0;cursor:pointer;
+  padding:15px 24px;border-radius:19px;flex:none;
+  box-shadow:5px 5px 0 var(--blush),0 0 30px rgba(250,194,207,.25);
+  transition:transform .16s cubic-bezier(.2,.9,.3,1),box-shadow .16s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--blush),0 0 46px rgba(250,194,207,.42)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--blush),0 0 20px rgba(250,194,207,.2)}
+.btn:focus-visible{outline:3px solid var(--blush);outline-offset:5px}
+.btn.huge{font-size:clamp(19px,3vw,26px);padding:clamp(20px,3vw,28px) clamp(40px,6vw,72px);border-radius:26px;letter-spacing:.18em;box-shadow:8px 8px 0 var(--blush),0 0 54px rgba(250,194,207,.34)}
+.btn.ghost{background:transparent;color:var(--paper);border:1.5px solid var(--blush);box-shadow:none}
+.btn.ghost:hover{background:rgba(250,194,207,.12);transform:none;box-shadow:none}
+
+/* ============ facts strip directly under the artwork ============ */
+.strip{background:var(--ink);border-bottom:1px solid var(--hair);padding:clamp(24px,4vw,38px) var(--gut);display:grid;gap:26px}
+@media (min-width:900px){.strip{grid-template-columns:auto 1fr;align-items:center;gap:44px}}
+.count{display:flex;gap:9px}
+.count div{background:rgba(247,241,241,.05);border:1px solid var(--hair);border-radius:13px;padding:11px 13px;min-width:68px;text-align:center}
+.count span{display:block;font-family:var(--mono);font-weight:700;font-size:clamp(20px,3vw,28px);font-variant-numeric:tabular-nums;line-height:1}
+.count small{display:block;margin-top:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--blush)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 26px}
+@media (min-width:640px){.facts{grid-template-columns:repeat(4,1fr)}}
+.fact span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--blush);text-transform:uppercase;margin-bottom:6px}
+.fact b{font-family:var(--display);font-size:15px;letter-spacing:-.01em;line-height:1.3;display:block}
+
+/* ============ content ============ */
+main{background:var(--pink)}
+section{padding:clamp(48px,8vw,104px) var(--gut);position:relative}
+section > *{max-width:var(--wide);margin-left:auto;margin-right:auto}
+
+/* heading left, standfirst right — fills the width now that the slab is gone */
+.head{display:grid;gap:16px}
+@media (min-width:980px){
+  .head{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,5vw,70px);align-items:end}
+  .head .sub{margin-top:0;padding-bottom:6px}
+}
+.head .sub{max-width:58ch}
+section:nth-of-type(even){background:var(--ink)}
+.label{display:inline-block;font-family:var(--display);font-size:clamp(12.5px,1.5vw,15px);letter-spacing:.24em;color:var(--paper);margin:0 0 10px;position:relative;padding:2px 12px}
+.label::before{content:"";position:absolute;inset:0;background:var(--marker);transform:skewX(-9deg) rotate(-.7deg);z-index:-1;border-radius:2px}
+section:nth-of-type(even) .label::before{background:var(--marker)}
+h2{font-family:var(--display);font-size:clamp(29px,5vw,58px);line-height:1;letter-spacing:-.025em;margin:14px 0 0;text-wrap:balance;max-width:20ch}
+.sub{
+  max-width:var(--col);margin:16px 0 0;
+  color:var(--paper);font-weight:600;
+  font-size:clamp(17.5px,1.6vw,21px);line-height:1.4;letter-spacing:-.005em;
+}
+.body-copy{max-width:var(--col);margin-top:30px}
+@media (min-width:980px){
+  .body-copy{max-width:none;columns:2;column-gap:clamp(36px,5vw,70px)}
+  .body-copy p{break-inside:avoid}
+}
+.body-copy p{margin:0 0 18px;font-size:17px;line-height:1.62}
+.body-copy p:last-child{margin-bottom:0}
+.body-copy strong{color:var(--paper);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:clamp(30px,5vw,52px);background:var(--hair);border:1px solid var(--hair);border-radius:18px;overflow:hidden}
+@media (min-width:820px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--ink);padding:24px 20px}
+.stat b{display:block;font-family:var(--display);font-size:clamp(23px,3.4vw,40px);line-height:1;letter-spacing:-.03em;overflow-wrap:anywhere}
+.stat span{display:block;margin-top:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--blush)}
+
+.cards{display:grid;gap:14px;margin-top:clamp(30px,5vw,52px)}
+@media (min-width:700px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1080px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1500px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
+section:nth-of-type(even) .card{background:rgba(247,241,241,.045)}
+.card-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--blush);text-transform:uppercase}
+.card h3{font-family:var(--display);font-size:21px;margin:0;letter-spacing:-.02em}
+.card p{margin:0;font-size:15px;color:var(--blush);line-height:1.5}
+.card-foot{margin-top:auto;padding-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--blush)}
+
+.tl{margin-top:clamp(30px,5vw,52px);background:var(--ink);border:1px solid var(--hair);border-radius:20px;padding:4px clamp(18px,3vw,30px)}
+section:nth-of-type(even) .tl{background:rgba(247,241,241,.045)}
+.tl-row{display:grid;grid-template-columns:1fr;gap:4px 26px;padding:20px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.tl-row:last-child{border-bottom:0}
+@media (min-width:760px){.tl-row{grid-template-columns:132px 200px 1fr}}
+.tl-when{font-family:var(--mono);font-size:13px;color:var(--blush);letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.tl-what{font-family:var(--display);font-size:17px;letter-spacing:-.01em}
+.tl-note{color:var(--blush);font-size:15.5px;margin:0;max-width:64ch}
+.tl-row.pin .tl-what{color:var(--blush)}
+.tba{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;border:1px solid var(--hair);color:var(--blush);border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:2px;text-transform:uppercase}
+
+.prize-band{background:var(--ink);border:1px solid var(--blush);border-radius:24px;padding:clamp(26px,5vw,50px);display:grid;gap:22px;align-items:center;margin-top:clamp(30px,5vw,52px);box-shadow:8px 8px 0 var(--marker)}
+@media (min-width:820px){.prize-band{grid-template-columns:auto 1fr;gap:44px}}
+.prize-figure{font-family:var(--display);font-size:clamp(42px,9vw,90px);line-height:.9;letter-spacing:-.045em;text-shadow:.05em .05em 0 var(--marker)}
+.prize-band p{margin:0;color:var(--blush);font-size:16.5px;max-width:56ch}
+
+.faq{margin-top:clamp(30px,5vw,52px);max-width:1040px;background:var(--ink);border:1px solid var(--hair);border-radius:20px;padding:4px clamp(18px,3vw,30px)}
+section:nth-of-type(even) .faq{background:rgba(247,241,241,.045)}
+details{border-bottom:1px solid var(--hair)}
+details:last-child{border-bottom:0}
+summary{cursor:pointer;list-style:none;padding:20px 42px 20px 0;position:relative;font-family:var(--display);font-size:clamp(16px,2.2vw,19px);letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:17px;font-family:var(--mono);font-size:22px;color:var(--blush);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+summary:focus-visible{outline:2px solid var(--blush);outline-offset:3px}
+details p{margin:0 0 22px;color:var(--blush);max-width:78ch;font-size:16px}
+
+.final{text-align:center}
+.final h2{font-size:clamp(40px,10vw,120px);letter-spacing:-.04em;max-width:none}
+.final .sub{margin-left:auto;margin-right:auto}
+footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(--gut) 40px;display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--blush);text-transform:uppercase}
+
+/* ============ registration chooser ============ */
+.scrim{position:fixed;inset:0;background:rgba(11,11,12,.82);z-index:60;display:grid;place-items:center;padding:18px;overflow-y:auto}
+.sheet{width:min(520px,100%);background:var(--pink);border:1px solid var(--blush);border-radius:24px;padding:clamp(22px,4vw,34px);box-shadow:10px 10px 0 var(--ink);position:relative;margin:auto}
+.sheet h2{font-size:clamp(25px,5vw,36px);margin:6px 0 0}
+.x{position:absolute;top:12px;right:12px;background:none;border:0;color:var(--paper);font-size:26px;line-height:1;cursor:pointer;padding:6px 10px;border-radius:10px}
+.x:hover{background:rgba(11,11,12,.35)}
+.x:focus-visible{outline:2px solid var(--blush)}
+.routes{display:grid;gap:14px;margin-top:24px}
+.route{display:flex;flex-direction:column;gap:7px;text-decoration:none;color:var(--paper);background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:20px 22px;transition:border-color .15s,transform .15s,box-shadow .15s}
+.route:hover{border-color:var(--blush);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--blush)}
+.route:focus-visible{outline:3px solid var(--blush);outline-offset:3px}
+.route-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--blush)}
+.route b{font-family:var(--display);font-size:19px;letter-spacing:-.01em}
+.route-d{font-size:14.5px;color:var(--blush);line-height:1.45}
+.route-go{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;margin-top:4px}
+.note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--blush);margin:16px 0 0;line-height:1.6}
+[hidden]{display:none!important}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:99;border-radius:0 0 12px 0}
+.skip:focus{left:0}
+</style>
+
+<style>*,*::before,*::after{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<a class="skip" href="#brief">Skip to the event details</a>
+
+<header id="bar">
+  <div class="mark">
+    <div class="mark-badge" aria-hidden="true"><span class="glyph">R</span><img alt="" id="hdrLogo"></div>
+    <div class="mark-txt">REDEFINE</div>
+  </div>
+  <nav aria-label="Sections">
+    <a href="#brief">The brief</a>
+    <a href="#tracks">Tracks</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#judging">Judging</a>
+    <a href="#prize">Prize</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <button class="btn" data-open>REGISTER</button>
+</header>
+
+<div class="stage">
+  <img class="art-desk" src="assets/desktop.svg" alt="REDEFINE — a 24-hour designathon by IEEE Computer Society, 16–17 September at Sarojini Naidu Gallery.">
+  <img class="art-mob" src="assets/mobile.svg" alt="">
+  <div class="hots hots-desk" aria-label="Page controls">
+    <button class="hot hot-register" data-open style="--l:81.11%;--t:3.22%;--w:13.40%;--h:5.96%">Register</button>
+    <a class="hot" href="#timeline" style="--l:6.6%;--t:45.4%;--w:19.4%;--h:6.4%">Timeline</a>
+    <a class="hot" href="#tracks"   style="--l:70.1%;--t:35.6%;--w:14.6%;--h:9.4%">Tracks</a>
+    <a class="hot" href="#teams"    style="--l:72.9%;--t:55.8%;--w:19.0%;--h:9.8%">Team up</a>
+    <a class="hot" href="#faq"      style="--l:15.6%;--t:63.4%;--w:7.6%;--h:8.8%">FAQ</a>
+  </div>
+  <div class="hots hots-mob" aria-label="Page controls">
+    <button class="hot hot-register" data-open style="--l:82.66%;--t:1.87%;--w:12.61%;--h:1.83%">Register</button>
+  </div>
+  <a class="scroll-cue" id="cue" href="#brief">
+    EVENT DETAILS
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M5.5 13L12 19.5 18.5 13"/></svg>
+  </a>
+</div>
+
+<div class="strip">
+  <div class="count" id="countdown" role="timer" aria-label="Time until REDEFINE begins">
+    <div><span data-cd="d">--</span><small>DAYS</small></div>
+    <div><span data-cd="h">--</span><small>HRS</small></div>
+    <div><span data-cd="m">--</span><small>MIN</small></div>
+    <div><span data-cd="s">--</span><small>SEC</small></div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span>Date</span><b>16 Sep – 17 Sep</b></div>
+    <div class="fact"><span>Runs</span><b>08:00 AM → 08:00 AM</b></div>
+    <div class="fact"><span>Venue</span><b>Sarojini Naidu Gallery</b></div>
+    <div class="fact"><span>Entry</span><b>₹150 per ticket</b></div>
+  </div>
+</div>
+
+<main>
+<section id="brief">
+  <div class="head">
+    <div>
+    <span class="label">THE BRIEF</span>
+  <h2>Take something familiar. Question everything about it.</h2>
+    </div>
+    <p class="sub">Redefine is a 24-hour designathon where creativity meets innovation, challenging participants to rethink the digital experiences they interact with every day.</p>
+  </div>
+  <div class="body-copy">
+    <p>Rather than simply improving existing platforms, participants are encouraged to <strong>question established design patterns, challenge assumptions, and reimagine how technology can serve users in entirely new ways.</strong></p>
+    <p>From reinventing Spotify and transforming e-commerce to redesigning social platforms, productivity tools, entertainment experiences, or everyday applications, the possibilities are limitless. The goal is not to build another version of what already exists, but to create something bold, meaningful, and distinctly different.</p>
+    <p>Throughout the 24-hour challenge, participants will explore user experience, visual design, interaction design, and emerging technologies to turn unconventional ideas into compelling digital experiences. They will identify limitations in familiar platforms, rethink their core interactions, and develop solutions that are intuitive, engaging, accessible, and future-ready.</p>
+    <p>Redefine is ultimately about breaking away from the expected. It provides a space for designers, developers, innovators, and creative thinkers to experiment beyond conventional boundaries and transform ambitious ideas into tangible experiences.</p>
+    <p>At Redefine, there are no fixed answers. The challenge is simple: <strong>take something familiar, question everything about it, and build something better.</strong></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>24</b><span>Hours, no pause</span></div>
+    <div class="stat"><b>1–4</b><span>Members per team</span></div>
+    <div class="stat"><b>₹150</b><span>Per ticket</span></div>
+    <div class="stat"><b>5 figures</b><span>Prize pool, dropping soon</span></div>
+  </div>
+</section>
+
+<section id="tracks">
+  <div class="head">
+    <div>
+    <span class="label">TRACKS</span>
+  <h2>What would you redefine?</h2>
+    </div>
+    <p class="sub">A set of tracks is released when the brief drops on the morning of the 16th, and every team picks one to work inside. The categories below are the kind of ground they’ll cover.</p>
+  </div>
+  <div class="cards" id="trackGrid"></div>
+</section>
+
+<section id="timeline">
+  <div class="head">
+    <div>
+    <span class="label">TIMELINE</span>
+  <h2>Twenty-four hours, one clock</h2>
+    </div>
+    <p class="sub">08:00 AM on 16 September to 08:00 AM on 17 September, at Sarojini Naidu Gallery.</p>
+  </div>
+  <div class="tl">
+    <div class="tl-row"><div class="tl-when">16 SEP · Early</div><div class="tl-what">Check-in <span class="tba">TBA</span></div><p class="tl-note">Reporting time before the opening bell goes out to registered teams.</p></div>
+    <div class="tl-row pin"><div class="tl-when">16 SEP · 08:00</div><div class="tl-what">Brief drops · clock starts</div><p class="tl-note">The problem statement and judging rubric go out. 24:00:00 on the clock from here.</p></div>
+    <div class="tl-row"><div class="tl-when">16 SEP · Midday</div><div class="tl-what">Checkpoint review <span class="tba">TBA</span></div><p class="tl-note">Progress reviews during the run. Format and timing to be announced.</p></div>
+    <div class="tl-row"><div class="tl-when">16 SEP · Night</div><div class="tl-what">Overnight session</div><p class="tl-note">The gallery stays open through the night. The clock doesn’t stop.</p></div>
+    <div class="tl-row pin"><div class="tl-when">17 SEP · 08:00</div><div class="tl-what">Submissions close</div><p class="tl-note">24 hours up. Final files and prototypes in.</p></div>
+    <div class="tl-row"><div class="tl-when">17 SEP · After</div><div class="tl-what">Judging &amp; results <span class="tba">TBA</span></div><p class="tl-note">Scored on architecture, colour palette, typography and creativity.</p></div>
+  </div>
+</section>
+
+<section id="judging">
+  <div class="head">
+    <div>
+    <span class="label">JUDGING</span>
+  <h2>Four things the judges score</h2>
+    </div>
+    <p class="sub">Craft carries as much weight as the idea. A radical concept in careless type and colour won’t clear the bar — and neither will a beautiful screen that changes nothing.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="card-k">Criterion 01</span><h3>Architecture</h3><p>How the experience is structured — information hierarchy, navigation, and whether the flow holds up under real use.</p></div>
+    <div class="card"><span class="card-k">Criterion 02</span><h3>Colour Palette</h3><p>Deliberate colour with a working system behind it: contrast, accessibility, and a palette chosen for this product.</p></div>
+    <div class="card"><span class="card-k">Criterion 03</span><h3>Typography</h3><p>Type as a decision, not a default. Scale, pairing, weight, spacing, and readability across the whole interface.</p></div>
+    <div class="card"><span class="card-k">Criterion 04</span><h3>Creativity</h3><p>How far you moved from the original. The bolder the departure — and the better you justify it — the higher this scores.</p></div>
+  </div>
+</section>
+
+<section id="teams">
+  <div class="head">
+    <div>
+    <span class="label">TEAM UP</span>
+  <h2>Teams are one to four</h2>
+    </div>
+    <p class="sub">Enter solo or bring up to three others. Everyone on the team registers individually, and you name your team when you do — put the same team name on every entry so we can group you.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="card-k">Solo</span><h3>1 member</h3><p>A valid entry. You compete on the same criteria as everyone else, on the same clock.</p></div>
+    <div class="card"><span class="card-k">Small</span><h3>2–3 members</h3><p>The common shape. Enough to split research, visual design and prototyping without losing time to coordination.</p></div>
+    <div class="card"><span class="card-k">Full</span><h3>4 members</h3><p>The maximum. Worth it if you can genuinely parallelise — twenty-four hours punishes teams that can’t.</p></div>
+  </div>
+</section>
+
+<section id="prize">
+  <div class="head">
+    <div>
+      <span class="label">PRIZE POOL</span>
+      <h2>Five digits. Number drops soon.</h2>
+    </div>
+    <p class="sub">The pool is locked in and it runs to five figures. The exact amount — and how it splits across the winning teams — is announced closer to the event.</p>
+  </div>
+  <div class="prize-band">
+    <div class="prize-figure" aria-label="A five-digit rupee prize pool, yet to be announced">₹ _ _ _ _ _</div>
+    <div><p>Scored on the same four criteria as everything else: architecture, colour palette, typography and creativity.</p></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="head">
+    <div>
+      <span class="label">FAQ</span>
+      <h2>Before you ask</h2>
+    </div>
+    <p class="sub">Anything not covered here goes out to registered teams by email before the 16th.</p>
+  </div>
+  <div class="faq">
+    <details open><summary>What does it cost?</summary><p>₹150 per ticket. That’s per person, and it covers the full 24 hours at the venue.</p></details>
+    <details><summary>Can I enter on my own?</summary><p>Yes. Teams are 1 to 4 members, so a solo entry is a valid team.</p></details>
+    <details><summary>Is this a coding event?</summary><p>It’s a designathon. The judging criteria are architecture, colour palette, typography and creativity — so the work is judged as design. How far you take it into a working prototype is up to you and your team.</p></details>
+    <details><summary>What will I be designing?</summary><p>A set of tracks is announced at the start of the event, and your team chooses one of them to work in. Expect familiar territory — music and streaming, e-commerce, social platforms, productivity tools, entertainment, everyday apps. Whichever track you pick, the rule is the same: you’re replacing something familiar, not polishing it.</p></details>
+    <details><summary>Can I start designing before the event?</summary><p>The brief drops at 08:00 on 16 September and the clock starts there. Coming in with sharpened tools, a set-up file and a point of view is fine; coming in with the deliverable is not.</p></details>
+    <details><summary>Where exactly is it?</summary><p>Sarojini Naidu Gallery, from 08:00 AM on 16 September to 08:00 AM on 17 September. Reporting time and what to bring will be sent to registered teams.</p></details>
+  </div>
+</section>
+
+<section class="final">
+  <span class="label">GET IN</span>
+  <h2>REDEFINE</h2>
+  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket · five-figure prize pool.</p>
+  <div style="margin-top:34px"><button class="btn huge" data-open>REGISTER</button></div>
+</section>
+</main>
+
+<footer>
+  <span>REDEFINE · IEEE COMPUTER SOCIETY</span>
+  <span>16–17 SEP · 08:00 → 08:00 · Sarojini Naidu Gallery</span>
+  <span>₹150 PER TICKET · 5-FIGURE PRIZE POOL</span>
+</footer>
+
+<div class="pen" id="pen" aria-hidden="true">
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.3 2.9l6.8 6.8-15.4 15.4-9 2.2 2.2-9L22.3 2.9z" fill="#FAC2CF"/>
+    <path d="M4.7 27.3l3.1-3.1" stroke="#FFF" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M20.4 6.5l5.1 5.1" stroke="#C1325F" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+    <button class="x" id="closeBtn" aria-label="Close">&times;</button>
+    <span class="label">REGISTER</span>
+    <h2 id="regTitle">One question first</h2>
+    <p class="sub">Registration runs on VIT’s own portals, and which one you use depends on where you’re coming from.</p>
+    <div class="routes">
+      <a class="route" href="https://vconnect.vit.ac.in/vtopconnect/login" target="_blank" rel="noopener noreferrer">
+        <span class="route-k">INTERNAL</span>
+        <b>I’m a VIT student</b>
+        <span class="route-d">Register through VTOP Connect with your VIT credentials.</span>
+        <span class="route-go">vconnect.vit.ac.in →</span>
+      </a>
+      <a class="route" href="https://web.vit.ac.in/gravitasexternal/login" target="_blank" rel="noopener noreferrer">
+        <span class="route-k">EXTERNAL</span>
+        <b>I’m from outside VIT</b>
+        <span class="route-d">Register through the Gravitas external portal.</span>
+        <span class="route-go">web.vit.ac.in →</span>
+      </a>
+    </div>
+    <p class="note">₹150 per ticket. Both links open VIT’s official registration portals in a new tab.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  var esc = function(s){ return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+
+  var TRACKS = [
+    {k:"01", n:"Music & Streaming", d:"Reinvent Spotify — or any service built on playlists, queues and recommendation feeds."},
+    {k:"02", n:"E-Commerce",        d:"Transform how people browse, compare, decide and check out. Carts are a convention, not a law."},
+    {k:"03", n:"Social Platforms",  d:"Redesign the feed, the profile, the timeline. Rethink what people are actually there for."},
+    {k:"04", n:"Productivity Tools",d:"Notes, tasks, calendars, docs. Question the metaphors we inherited from paper."},
+    {k:"05", n:"Entertainment",     d:"Streaming, gaming, reading. Reimagine how a story or a session is discovered and consumed."},
+    {k:"06", n:"Everyday Apps",     d:"Banking, transit, weather, health. The screens people open without thinking."}
+  ];
+  $("#trackGrid").innerHTML = TRACKS.map(function(t){
+    return '<article class="card"><span class="card-k">'+esc(t.k)+'</span><h3>'+esc(t.n)+
+           '</h3><p>'+esc(t.d)+'</p><span class="card-foot">SAMPLE CATEGORY</span></article>';
+  }).join("");
+
+  /* countdown to the opening bell */
+  var EVENT_START = new Date("2026-09-16T08:00:00+05:30");
+  var cd = { d:$('[data-cd="d"]'), h:$('[data-cd="h"]'), m:$('[data-cd="m"]'), s:$('[data-cd="s"]') };
+  function pad(n){ return (n<10?"0":"") + n; }
+  function tickClock(){
+    var ms = EVENT_START - Date.now();
+    if (ms <= 0){ ["d","h","m","s"].forEach(function(k){ cd[k].textContent = "00"; }); return; }
+    var t = Math.floor(ms/1000);
+    cd.d.textContent = pad(Math.floor(t/86400));
+    cd.h.textContent = pad(Math.floor(t%86400/3600));
+    cd.m.textContent = pad(Math.floor(t%3600/60));
+    cd.s.textContent = pad(t%60);
+  }
+  tickClock(); setInterval(tickClock, 1000);
+
+  /* the bar appears once the artwork is behind you */
+  var bar = $("#bar"), stage = $(".stage");
+  var cue = $("#cue");
+  function onScroll(){
+    bar.classList.toggle("shown", window.scrollY > stage.offsetHeight - 90);
+    cue.classList.toggle("gone", window.scrollY > 60);
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+
+  /* optional logo: drop logo.svg or logo.png beside this file */
+  (function(){
+    var names = ["logo.svg","logo.png"];
+    (function next(i){
+      if (i >= names.length) return;
+      var probe = new Image();
+      probe.onload = function(){ $("#hdrLogo").src = names[i]; document.body.classList.add("has-logo"); };
+      probe.onerror = function(){ next(i+1); };
+      probe.src = names[i];
+    })(0);
+  })();
+
+  /* a glowing pen stands in for the cursor over anything clickable on the artwork */
+  (function(){
+    if (!window.matchMedia || !window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+    var pen = $("#pen"), x = 0, y = 0, queued = false;
+    function paint(){
+      queued = false;
+      pen.style.transform = "translate3d(" + (x - 6) + "px," + (y - 28) + "px,0)";
+    }
+    function move(e){
+      x = e.clientX; y = e.clientY;
+      if (!queued){ queued = true; requestAnimationFrame(paint); }
+    }
+    $$(".hot").forEach(function(el){
+      el.addEventListener("mouseenter", function(e){ move(e); paint(); pen.classList.add("on"); });
+      el.addEventListener("mousemove", move);
+      el.addEventListener("mouseleave", function(){ pen.classList.remove("on"); });
+    });
+    window.addEventListener("blur", function(){ pen.classList.remove("on"); });
+  })();
+
+  /* registration chooser */
+  var scrim = $("#scrim"), lastFocus = null;
+  function openModal(){
+    lastFocus = document.activeElement;
+    scrim.hidden = false;
+    document.body.style.overflow = "hidden";
+    setTimeout(function(){ $(".route", scrim).focus(); }, 30);
+  }
+  function closeModal(){
+    scrim.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $$("[data-open]").forEach(function(b){ b.addEventListener("click", openModal); });
+  $("#closeBtn").addEventListener("click", closeModal);
+  scrim.addEventListener("mousedown", function(e){ if (e.target === scrim) closeModal(); });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && !scrim.hidden) closeModal();
+    if (e.key === "Tab" && !scrim.hidden){
+      var f = $$('button, a[href]', scrim).filter(function(el){ return el.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
