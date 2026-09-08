@@ -10,7 +10,9 @@
     <a href="#tracks">Tracks</a>
     <a href="#timeline">Timeline</a>
     <a href="#judging">Judging</a>
+    <!-- PRIZE POOL — hidden until the amount is announced. Uncomment to restore.
     <a href="#prize">Prize</a>
+    -->
     <a href="#faq">FAQ</a>
   </nav>
   <button class="btn" data-open>REGISTER</button>
@@ -74,7 +76,10 @@
     <div class="stat"><b>24</b><span>Hours, no pause</span></div>
     <div class="stat"><b>1–4</b><span>Members per team</span></div>
     <div class="stat"><b>₹150</b><span>Per ticket</span></div>
+    <div class="stat"><b>4</b><span>Judging criteria</span></div>
+    <!-- PRIZE POOL — swap this back in for the tile above when the amount is announced.
     <div class="stat"><b>5 figures</b><span>Prize pool, dropping soon</span></div>
+    -->
   </div>
 </section>
 
@@ -138,6 +143,7 @@
   </div>
 </section>
 
+<!-- PRIZE POOL — hidden until the amount is announced. Uncomment to restore.
 <section id="prize">
   <div class="head">
     <div>
@@ -151,6 +157,7 @@
     <div><p>Scored on the same four criteria as everything else: architecture, colour palette, typography and creativity.</p></div>
   </div>
 </section>
+-->
 
 <section id="faq">
   <div class="head">
@@ -173,7 +180,7 @@
 <section class="final">
   <span class="label">GET IN</span>
   <h2>REDEFINE</h2>
-  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket · five-figure prize pool.</p>
+  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket.<!-- PRIZE POOL: append " · five-figure prize pool." here --></p>
   <div style="margin-top:34px"><button class="btn huge" data-open>REGISTER</button></div>
 </section>
 </main>
@@ -181,7 +188,7 @@
 <footer>
   <span>REDEFINE · IEEE COMPUTER SOCIETY</span>
   <span>16–17 SEP · 08:00 → 08:00 · Sarojini Naidu Gallery</span>
-  <span>₹150 PER TICKET · 5-FIGURE PRIZE POOL</span>
+  <span>₹150 PER TICKET</span><!-- PRIZE POOL: was "₹150 PER TICKET · 5-FIGURE PRIZE POOL" -->
 </footer>
 
 <div class="pen" id="pen" aria-hidden="true">

@@ -201,6 +201,7 @@ section:nth-of-type(even) .tl{background:rgba(247,241,241,.045)}
 .tl-row.pin .tl-what{color:var(--blush)}
 .tba{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;border:1px solid var(--hair);color:var(--blush);border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:2px;text-transform:uppercase}
 
+/* PRIZE POOL — styles kept for the commented-out section in body.part */
 .prize-band{background:var(--ink);border:1px solid var(--blush);border-radius:24px;padding:clamp(26px,5vw,50px);display:grid;gap:22px;align-items:center;margin-top:clamp(30px,5vw,52px);box-shadow:8px 8px 0 var(--marker)}
 @media (min-width:820px){.prize-band{grid-template-columns:auto 1fr;gap:44px}}
 .prize-figure{font-family:var(--display);font-size:clamp(42px,9vw,90px);line-height:.9;letter-spacing:-.045em;text-shadow:.05em .05em 0 var(--marker)}
@@ -258,7 +259,9 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <a href="#tracks">Tracks</a>
     <a href="#timeline">Timeline</a>
     <a href="#judging">Judging</a>
+    <!-- PRIZE POOL — hidden until the amount is announced. Uncomment to restore.
     <a href="#prize">Prize</a>
+    -->
     <a href="#faq">FAQ</a>
   </nav>
   <button class="btn" data-open>REGISTER</button>
@@ -322,7 +325,10 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <div class="stat"><b>24</b><span>Hours, no pause</span></div>
     <div class="stat"><b>1–4</b><span>Members per team</span></div>
     <div class="stat"><b>₹150</b><span>Per ticket</span></div>
+    <div class="stat"><b>4</b><span>Judging criteria</span></div>
+    <!-- PRIZE POOL — swap this back in for the tile above when the amount is announced.
     <div class="stat"><b>5 figures</b><span>Prize pool, dropping soon</span></div>
+    -->
   </div>
 </section>
 
@@ -386,6 +392,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
   </div>
 </section>
 
+<!-- PRIZE POOL — hidden until the amount is announced. Uncomment to restore.
 <section id="prize">
   <div class="head">
     <div>
@@ -399,6 +406,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <div><p>Scored on the same four criteria as everything else: architecture, colour palette, typography and creativity.</p></div>
   </div>
 </section>
+-->
 
 <section id="faq">
   <div class="head">
@@ -421,7 +429,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 <section class="final">
   <span class="label">GET IN</span>
   <h2>REDEFINE</h2>
-  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket · five-figure prize pool.</p>
+  <p class="sub">16–17 September · 24 hours · Sarojini Naidu Gallery · ₹150 per ticket.<!-- PRIZE POOL: append " · five-figure prize pool." here --></p>
   <div style="margin-top:34px"><button class="btn huge" data-open>REGISTER</button></div>
 </section>
 </main>
@@ -429,7 +437,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 <footer>
   <span>REDEFINE · IEEE COMPUTER SOCIETY</span>
   <span>16–17 SEP · 08:00 → 08:00 · Sarojini Naidu Gallery</span>
-  <span>₹150 PER TICKET · 5-FIGURE PRIZE POOL</span>
+  <span>₹150 PER TICKET</span><!-- PRIZE POOL: was "₹150 PER TICKET · 5-FIGURE PRIZE POOL" -->
 </footer>
 
 <div class="pen" id="pen" aria-hidden="true">

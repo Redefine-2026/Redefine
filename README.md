@@ -37,12 +37,23 @@ REGISTER opens a chooser that routes to the right VIT portal:
 - VIT students → `vconnect.vit.ac.in/vtopconnect/login`
 - Everyone else → `web.vit.ac.in/gravitasexternal/login`
 
-Below the artwork: a live countdown to the opening bell, the brief, tracks, timeline, judging criteria, team sizing, prize pool and FAQ.
+Below the artwork: a live countdown to the opening bell, the brief, tracks, timeline, judging criteria, team sizing and FAQ.
 
 No build tooling, no dependencies. The only external request is the Google Fonts stylesheet (Archivo Black, Archivo, JetBrains Mono).
 
+## The prize pool is hidden, not deleted
+
+Every mention is commented out rather than removed, so it comes back without rewriting anything. Search `src/body.part` for `PRIZE POOL` — there are five places:
+
+1. The nav link
+2. The stats tile (swap it back in for the "4 / Judging criteria" tile)
+3. The whole `<section id="prize">`
+4. The final call to action's line
+5. The footer
+
+Uncomment what you want, put the real figure in place of `₹ _ _ _ _ _`, then run the build. The styles it needs are still in `src/head.part`, marked with the same tag.
+
 ## Still to fill in
 
-- The prize amount — the page currently teases "five digits"
 - Check-in time, checkpoint format, and results timing (marked TBA on the timeline)
 - A contact address for the footer

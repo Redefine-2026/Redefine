@@ -189,6 +189,7 @@ section:nth-of-type(even) .tl{background:rgba(247,241,241,.045)}
 .tl-row.pin .tl-what{color:var(--blush)}
 .tba{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;border:1px solid var(--hair);color:var(--blush);border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:2px;text-transform:uppercase}
 
+/* PRIZE POOL — styles kept for the commented-out section in body.part */
 .prize-band{background:var(--ink);border:1px solid var(--blush);border-radius:24px;padding:clamp(26px,5vw,50px);display:grid;gap:22px;align-items:center;margin-top:clamp(30px,5vw,52px);box-shadow:8px 8px 0 var(--marker)}
 @media (min-width:820px){.prize-band{grid-template-columns:auto 1fr;gap:44px}}
 .prize-figure{font-family:var(--display);font-size:clamp(42px,9vw,90px);line-height:.9;letter-spacing:-.045em;text-shadow:.05em .05em 0 var(--marker)}
