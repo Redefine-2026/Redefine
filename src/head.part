@@ -274,6 +274,16 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 /* ============ instagram + whatsapp contact links ============ */
 .ig-link{display:inline-flex;align-items:center;gap:5px}
 .ig-icon{width:14px;height:14px;flex:none}
+.contact-toggle{
+  display:inline-flex;align-items:center;gap:16px;
+  background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;
+}
+.contact-toggle:focus-visible{outline:2px solid var(--blush);outline-offset:8px;border-radius:4px}
+.contact-toggle .toggle-ic{
+  font-family:var(--mono);font-size:.5em;color:var(--blush);line-height:1;
+  transition:transform .2s;flex:none;
+}
+.contact-toggle[aria-expanded="true"] .toggle-ic{transform:rotate(45deg)}
 .contacts{display:grid;gap:14px;margin-top:clamp(30px,5vw,52px)}
 @media (min-width:640px){.contacts{grid-template-columns:repeat(2,1fr)}}
 .contact-item{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--paper);background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:20px 22px;transition:border-color .15s,transform .15s,box-shadow .15s}
