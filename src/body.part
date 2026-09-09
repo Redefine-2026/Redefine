@@ -221,21 +221,12 @@
         <span class="route-d">Register through VTOP Connect with your VIT credentials.</span>
         <span class="route-go">vconnect.vit.ac.in →</span>
       </a>
-      <a class="route" href="https://web.vit.ac.in/gravitasexternal/login" target="_blank" rel="noopener noreferrer">
+      <a class="route" href="https://gravitas.vit.ac.in/events/d440eb17-cc8b-4651-943a-1d449a2efeee" target="_blank" rel="noopener noreferrer">
         <span class="route-k">EXTERNAL</span>
         <b>I’m from outside VIT</b>
-        <span class="route-d">Register through the Gravitas external portal.</span>
-        <span class="route-go">web.vit.ac.in →</span>
+        <span class="route-d">Register directly on the official Gravitas event page.</span>
+        <span class="route-go">gravitas.vit.ac.in →</span>
       </a>
-    </div>
-    <div class="path">
-      <span class="path-k">Once you’re in, find us at</span>
-      <ol>
-        <li>Events</li>
-        <li>Hackathon</li>
-        <li>Redefine</li>
-        <li>Complete payment</li>
-      </ol>
     </div>
     <p class="note">₹150 + GST per ticket. Both links open VIT’s official registration portals in a new tab.</p>
   </div>
