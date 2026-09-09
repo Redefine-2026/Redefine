@@ -271,28 +271,12 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 .path li:last-child{color:var(--blush)}
 .note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--blush);margin:16px 0 0;line-height:1.6}
 
-/* ============ instagram + whatsapp contact links ============ */
+/* ============ instagram icon + contact popup trigger ============ */
 .ig-link{display:inline-flex;align-items:center;gap:5px}
 .ig-icon{width:14px;height:14px;flex:none}
-.contact-toggle{
-  display:inline-flex;align-items:center;gap:16px;
-  background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;
-}
+.contact-toggle{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;transition:color .15s}
+.contact-toggle:hover{color:var(--blush)}
 .contact-toggle:focus-visible{outline:2px solid var(--blush);outline-offset:8px;border-radius:4px}
-.contact-toggle .toggle-ic{
-  font-family:var(--mono);font-size:.5em;color:var(--blush);line-height:1;
-  transition:transform .2s;flex:none;
-}
-.contact-toggle[aria-expanded="true"] .toggle-ic{transform:rotate(45deg)}
-.contacts{display:grid;gap:14px;margin-top:clamp(30px,5vw,52px)}
-@media (min-width:640px){.contacts{grid-template-columns:repeat(2,1fr)}}
-.contact-item{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--paper);background:var(--ink);border:1px solid var(--hair);border-radius:18px;padding:20px 22px;transition:border-color .15s,transform .15s,box-shadow .15s}
-section:nth-of-type(even) .contact-item{background:rgba(247,241,241,.045)}
-.contact-item:hover{border-color:var(--blush);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--blush)}
-.contact-item:focus-visible{outline:3px solid var(--blush);outline-offset:3px}
-.contact-name{font-family:var(--display);font-size:17px;letter-spacing:-.01em}
-.contact-num{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:13.5px;color:var(--blush);letter-spacing:.02em}
-.wa-icon{width:15px;height:15px;flex:none;color:var(--blush)}
 [hidden]{display:none!important}
 .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:99;border-radius:0 0 12px 0}
 .skip:focus{left:0}
