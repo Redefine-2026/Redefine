@@ -212,23 +212,27 @@
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="regTitle">
     <button class="x" id="closeBtn" aria-label="Close">&times;</button>
     <span class="label">REGISTER</span>
-    <h2 id="regTitle">One question first</h2>
-    <p class="sub">Registration runs on VIT’s own portals, and which one you use depends on where you’re coming from.</p>
+    <h2 id="regTitle">Complete registration on Gravitas</h2>
+    <p class="sub">Registration for REDEFINE runs entirely on VIT’s official Gravitas portal.</p>
     <div class="routes">
-      <a class="route" href="https://vconnect.vit.ac.in/vtopconnect/login" target="_blank" rel="noopener noreferrer">
-        <span class="route-k">INTERNAL</span>
-        <b>I’m a VIT student</b>
-        <span class="route-d">Register through VTOP Connect with your VIT credentials.</span>
-        <span class="route-go">vconnect.vit.ac.in →</span>
-      </a>
       <a class="route" href="https://gravitas.vit.ac.in/events/d440eb17-cc8b-4651-943a-1d449a2efeee" target="_blank" rel="noopener noreferrer">
-        <span class="route-k">EXTERNAL</span>
-        <b>I’m from outside VIT</b>
-        <span class="route-d">Register directly on the official Gravitas event page.</span>
+        <span class="route-k">GRAVITAS</span>
+        <b>Register on the event page</b>
+        <span class="route-d">Opens the official REDEFINE event page on Gravitas.</span>
         <span class="route-go">gravitas.vit.ac.in →</span>
       </a>
     </div>
-    <p class="note">₹150 + GST per ticket. Both links open VIT’s official registration portals in a new tab.</p>
+    <div class="path">
+      <span class="path-k">Once you’re in, find us at</span>
+      <ol>
+        <li>Event</li>
+        <li>Event Registration</li>
+        <li>Hackathon</li>
+        <li>Redefine</li>
+        <li>Complete payment</li>
+      </ol>
+    </div>
+    <p class="note">₹150 + GST per ticket. Opens VIT’s official Gravitas portal in a new tab.</p>
   </div>
 </div>
 
