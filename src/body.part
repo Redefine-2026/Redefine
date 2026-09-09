@@ -171,6 +171,7 @@
     <details><summary>What will I be designing?</summary><p>A set of tracks is announced at the start of the event, and your team chooses one of them to work in. Expect familiar territory — music and streaming, e-commerce, social platforms, productivity tools, entertainment, everyday apps. Whichever track you pick, the rule is the same: you’re replacing something familiar, not polishing it.</p></details>
     <details><summary>Can I start designing before the event?</summary><p>The brief drops at 08:00 on 16 September and the clock starts there. Coming in with sharpened tools, a set-up file and a point of view is fine; coming in with the deliverable is not.</p></details>
     <details><summary>Where exactly is it?</summary><p>Sarojini Naidu Gallery, from 08:00 AM on 16 September to 08:00 AM on 17 September. Reporting time and what to bring will be sent to registered teams.</p></details>
+    <details><summary>Is OD provided?</summary><p>Yes. OD is provided for the full duration of the event, from 08:00 AM on 16 September to 08:00 AM on 17 September.</p></details>
   </div>
 </section>
 
@@ -269,6 +270,22 @@
   </div>
 </div>
 
+<div class="scrim" id="introScrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <button class="x" id="introCloseBtn" aria-label="Close">&times;</button>
+    <h2 id="introTitle" class="intro-title">Time until REDEFINE</h2>
+    <div class="count intro-count" role="timer" aria-label="Time until REDEFINE begins">
+      <div><span data-cd="d">--</span><small>DAYS</small></div>
+      <div><span data-cd="h">--</span><small>HRS</small></div>
+      <div><span data-cd="m">--</span><small>MIN</small></div>
+      <div><span data-cd="s">--</span><small>SEC</small></div>
+    </div>
+    <p class="fill-note">Seats are filling fast.</p>
+    <p class="sub">16–17 September · Sarojini Naidu Gallery · ₹150<sup>*</sup> per ticket.</p>
+    <div style="margin-top:24px"><button class="btn" data-open>REGISTER</button></div>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -290,18 +307,23 @@
            '</h3><p>'+esc(t.d)+'</p><span class="card-foot">SAMPLE CATEGORY</span></article>';
   }).join("");
 
-  /* countdown to the opening bell */
+  /* countdown to the opening bell — updates every element sharing a data-cd key,
+     so the inline strip and the opening popup stay in sync off one clock */
   var EVENT_START = new Date("2026-09-16T08:00:00+05:30");
-  var cd = { d:$('[data-cd="d"]'), h:$('[data-cd="h"]'), m:$('[data-cd="m"]'), s:$('[data-cd="s"]') };
   function pad(n){ return (n<10?"0":"") + n; }
   function tickClock(){
     var ms = EVENT_START - Date.now();
-    if (ms <= 0){ ["d","h","m","s"].forEach(function(k){ cd[k].textContent = "00"; }); return; }
-    var t = Math.floor(ms/1000);
-    cd.d.textContent = pad(Math.floor(t/86400));
-    cd.h.textContent = pad(Math.floor(t%86400/3600));
-    cd.m.textContent = pad(Math.floor(t%3600/60));
-    cd.s.textContent = pad(t%60);
+    var vals = ms <= 0
+      ? { d:"00", h:"00", m:"00", s:"00" }
+      : (function(t){ return {
+          d: pad(Math.floor(t/86400)),
+          h: pad(Math.floor(t%86400/3600)),
+          m: pad(Math.floor(t%3600/60)),
+          s: pad(t%60)
+        }; })(Math.floor(ms/1000));
+    ["d","h","m","s"].forEach(function(k){
+      $$('[data-cd="'+k+'"]').forEach(function(el){ el.textContent = vals[k]; });
+    });
   }
   tickClock(); setInterval(tickClock, 1000);
 
@@ -348,29 +370,38 @@
     window.addEventListener("blur", function(){ pen.classList.remove("on"); });
   })();
 
-  /* modal dialogs — registration chooser + contact popup share this */
-  var lastFocus = null;
+  /* modal dialogs — registration chooser, contact popup and the opening
+     countdown popup all share this. Opening one closes any other. */
+  var lastFocus = null, modals = [];
   function makeModal(scrim, closeBtn, openTriggers){
     function open(){
+      modals.forEach(function(m){ if (m.scrim !== scrim && !m.scrim.hidden) m.hide(); });
       lastFocus = document.activeElement;
       scrim.hidden = false;
       document.body.style.overflow = "hidden";
-      setTimeout(function(){ $(".route", scrim).focus(); }, 30);
+      setTimeout(function(){
+        var f = $$('button, a[href]', scrim).filter(function(el){ return el !== closeBtn; })[0];
+        if (f) f.focus();
+      }, 30);
     }
-    function close(){
+    function hide(){
       scrim.hidden = true;
       document.body.style.overflow = "";
+    }
+    function close(){
+      hide();
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
     openTriggers.forEach(function(b){ b.addEventListener("click", open); });
     closeBtn.addEventListener("click", close);
     scrim.addEventListener("mousedown", function(e){ if (e.target === scrim) close(); });
-    return { scrim: scrim, close: close };
+    var api = { scrim: scrim, open: open, close: close, hide: hide };
+    modals.push(api);
+    return api;
   }
-  var modals = [
-    makeModal($("#scrim"), $("#closeBtn"), $$("[data-open]")),
-    makeModal($("#contactScrim"), $("#contactCloseBtn"), $$("[data-open-contact]"))
-  ];
+  makeModal($("#scrim"), $("#closeBtn"), $$("[data-open]"));
+  makeModal($("#contactScrim"), $("#contactCloseBtn"), $$("[data-open-contact]"));
+  var introModal = makeModal($("#introScrim"), $("#introCloseBtn"), []);
   document.addEventListener("keydown", function(e){
     var active = modals.filter(function(m){ return !m.scrim.hidden; })[0];
     if (!active) return;
@@ -383,5 +414,8 @@
       else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     }
   });
+
+  /* the countdown popup greets whoever opens the site */
+  introModal.open();
 })();
 </script>
