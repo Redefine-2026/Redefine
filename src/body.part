@@ -179,7 +179,7 @@
   <div class="head">
     <div>
       <span class="label">CONTACT</span>
-      <h2><button type="button" class="contact-toggle" data-open-contact>Contact us</button></h2>
+      <h2><button type="button" class="contact-toggle" data-open-contact>Contact us<span class="toggle-ic" aria-hidden="true">+</span></button></h2>
     </div>
     <p class="sub">Something the FAQ doesn’t answer? Talk to us on Instagram or WhatsApp — we read every message and reply before the event.</p>
   </div>

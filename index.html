@@ -290,9 +290,10 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
 /* ============ instagram icon + contact popup trigger ============ */
 .ig-link{display:inline-flex;align-items:center;gap:5px}
 .ig-icon{width:14px;height:14px;flex:none}
-.contact-toggle{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;transition:color .15s}
+.contact-toggle{display:inline-flex;align-items:center;gap:14px;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;transition:color .15s}
 .contact-toggle:hover{color:var(--blush)}
 .contact-toggle:focus-visible{outline:2px solid var(--blush);outline-offset:8px;border-radius:4px}
+.contact-toggle .toggle-ic{font-family:var(--mono);font-size:.55em;color:var(--blush);line-height:1;flex:none}
 [hidden]{display:none!important}
 .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:99;border-radius:0 0 12px 0}
 .skip:focus{left:0}
@@ -474,7 +475,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
     <details><summary>What will I be designing?</summary><p>A set of tracks is announced at the start of the event, and your team chooses one of them to work in. Expect familiar territory — music and streaming, e-commerce, social platforms, productivity tools, entertainment, everyday apps. Whichever track you pick, the rule is the same: you’re replacing something familiar, not polishing it.</p></details>
     <details><summary>Can I start designing before the event?</summary><p>The brief drops at 08:00 on 16 September and the clock starts there. Coming in with sharpened tools, a set-up file and a point of view is fine; coming in with the deliverable is not.</p></details>
     <details><summary>Where exactly is it?</summary><p>Sarojini Naidu Gallery, from 08:00 AM on 16 September to 08:00 AM on 17 September. Reporting time and what to bring will be sent to registered teams.</p></details>
-    <details><summary>Is OD provided?</summary><p>Yes. OD is provided for the full duration of the event.</p></details>
+    <details><summary>Is OD provided?</summary><p>Yes. OD is provided for the full duration of the event, from 08:00 AM on 16 September to 08:00 AM on 17 September.</p></details>
   </div>
 </section>
 
@@ -482,7 +483,7 @@ footer{background:var(--ink);border-top:1px solid var(--hair);padding:26px var(-
   <div class="head">
     <div>
       <span class="label">CONTACT</span>
-      <h2><button type="button" class="contact-toggle" data-open-contact>Contact us</button></h2>
+      <h2><button type="button" class="contact-toggle" data-open-contact>Contact us<span class="toggle-ic" aria-hidden="true">+</span></button></h2>
     </div>
     <p class="sub">Something the FAQ doesn’t answer? Talk to us on Instagram or WhatsApp — we read every message and reply before the event.</p>
   </div>
